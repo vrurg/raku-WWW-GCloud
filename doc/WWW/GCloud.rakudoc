@@ -42,6 +42,12 @@ a few important notes though.
 So far, best way to start with this module is to explore I<examples/> and I<t/> directories. Apparently, inspecting the
 sources in I<lib/> would be the most helpful!
 
+=head2 The Status
+
+This is pre-alfa, pre-beta, pre-anything. It is incomplete, sometimes not well enough though out, etc., etc., etc.
+If you miss a method, an API, whatever – best is to submit a PR or implement a new missing API. It shouldn't be a big
+deal, a lot can be done by using the "By Example" textbook receipes!
+
 =head2 WWW::GCloud Object Structure
 
 Google Cloud structures its API into themed APIs like Resource Manager, Storage, Vision, etc. Each particular API, in

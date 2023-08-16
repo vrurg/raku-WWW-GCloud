@@ -41,6 +41,11 @@ This is going to be my worst documentation so far! I apologize for this, but sim
 
 So far, best way to start with this module is to explore *examples/* and *t/* directories. Apparently, inspecting the sources in *lib/* would be the most helpful!
 
+The Status
+----------
+
+This is pre-alfa, pre-beta, pre-anything. It is incomplete, sometimes not well enough though out, etc., etc., etc. If you miss a method, an API, whatever – best is to submit a PR or implement a new missing API. It shouldn't be a big deal, a lot can be done by using the "By Example" textbook receipes!
+
 WWW::GCloud Object Structure
 ----------------------------
 
