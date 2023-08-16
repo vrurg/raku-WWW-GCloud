@@ -36,7 +36,7 @@ await $gcloud.resource-manager.projects.create(
 
 =head1 DESCRIPTION
 
-This is going to be my worst documentation so far! I apologize for this, but simple unable to write it yet. Will provide
+This is going to be my worst documentation so far! I apologize for this, but simply unable to write it yet. Will provide
 a few important notes though.
 
 So far, best way to start with this module is to explore I<examples/> and I<t/> directories. Apparently, inspecting the

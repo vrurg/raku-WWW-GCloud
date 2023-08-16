@@ -37,7 +37,7 @@ await $gcloud.resource-manager.projects.create(
 DESCRIPTION
 ===========
 
-This is going to be my worst documentation so far! I apologize for this, but simple unable to write it yet. Will provide a few important notes though.
+This is going to be my worst documentation so far! I apologize for this, but simply unable to write it yet. Will provide a few important notes though.
 
 So far, best way to start with this module is to explore *examples/* and *t/* directories. Apparently, inspecting the sources in *lib/* would be the most helpful!
 
