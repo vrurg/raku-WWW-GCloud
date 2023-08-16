@@ -1,0 +1,31 @@
+use v6.e.PREVIEW;
+use Test::Async;
+
+use WWW::GCloud::Record;
+
+plan 7;
+
+class TestRec is gc-record {
+    has Str $.myFieldOfSomeKind;
+    has Str $.kebabifyThisONEToo;
+}
+
+cmp-deeply TestRec.new(:my-field-of-some-kind("is set"), :kebabify-this-onetoo("set too")),
+           TestRec.new(:myFieldOfSomeKind("is set"), :kebabifyThisONEToo("set too")),
+           "attribute names of a 'is gc-record' class are kebabified";
+
+class TestRecs is gc-record(:paginating(TestRec, "testRecords")) {}
+
+ok ?TestRecs.^can('testRecords'), "paginating record has the specified camel case attribute accessor";
+ok ?TestRecs.^can('test-records'), "paginating record has kebabified attribute accessor";
+
+my $test-rec = TestRec.new(:my-field-of-some-kind("in folio"));
+my $folio = TestRecs.new: page-token => "abd", test-records => ($test-rec,);
+
+is $folio.items.elems, 1, "items attribute length";
+is $folio.test-records.elems, 1, "kebabified items attribute length";
+is $folio.testRecords.elems, 1, "camelized items attribute length";
+
+cmp-ok $folio.items.head, &[===], $test-rec, "\$.items is  initialized with the original record";
+
+done-testing;

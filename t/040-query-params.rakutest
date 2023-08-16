@@ -1,0 +1,52 @@
+use v6.e.PREVIEW;
+use experimental :rakuast;
+use Test::Async;
+
+use WWW::GCloud::QueryParams;
+use WWW::GCloud::Object;
+
+plan 4;
+
+class TestResource is WWW::GCloud::Object {
+    also does WWW::GCloud::QueryParams;
+
+    method throw(|c) { nextwith |c, :api-name<TestAPI>, :resource<someResource> }
+
+    method test-method(Str:D $message, :%expect-query, :@expect-headers, *%c)
+        is gc-params(
+            query => { :STD-PARAMS, :named-string(Str), :maxSize(UInt(Str)), :flag(Bool) },
+            header => { :STD-PARAMS<x-encryption-key>, foo => [ 'X-Custom-Foo', Rat ] } )
+    {
+        self.gc-validate-args: |%c, -> :%query, :@headers {
+            subtest $message => {
+                cmp-deeply %query, %expect-query, "query arguments";
+                cmp-deeply @headers, @expect-headers, "request headers";
+            }
+        };
+    }
+}
+
+my $tr = TestResource.new;
+
+$tr.test-method:
+    "only query arguments",
+    expect-query => { :alt<json>, :!flag, :named-string<foo>, :maxSize(42) },
+    :!flag, named-string => <foo>, :alt<json>, :maxSize("42");
+$tr.test-method:
+    "argument and header",
+    expect-query => { :maxSize<42> },
+    expect-headers => [ :X-Goog-Encryption-Key<mocking-enc-key> ],
+    :maxSize<42>,
+    :x-encryption-key<mocking-enc-key>;
+
+throws-like
+    { $tr.test-method: "failing typecheck", :maxSize(pi); },
+    X::TypeCheck::Binding::Parameter,
+    "passing an argument of wrong type throws",
+    parameter => { .name eq '$maxSize' };
+
+throws-like
+    { $tr.test-method: "unknown argument", :unknown; },
+    WWW::GCloud::X::API::ExtraArgs,
+    "passing an unknown argument throws",
+    extra => ['unknown'];

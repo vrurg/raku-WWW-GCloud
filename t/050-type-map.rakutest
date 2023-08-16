@@ -1,0 +1,57 @@
+use v6.e.PREVIEW;
+use Test::Async;
+
+use WWW::GCloud;
+use WWW::GCloud::Record;
+use WWW::GCloud::R::Operation;
+use WWW::GCloud::R::Status;
+use JSON::Marshal;
+
+plan 4;
+
+my $gcloud = WWW::GCloud.new;
+
+my $json = q:to/JSON/;
+{
+    "name": "test-op",
+    "done": false,
+    "error": {
+        "code": "42",
+        "message": "this is status"
+    }
+}
+JSON
+
+my $op = $gcloud.gc-ctx: {
+    WWW::GCloud::R::Operation.from-json($json);
+};
+
+isa-ok $op.error, WWW::GCloud::R::Status, "no map, the original type is used";
+
+my $unwrapped-op-json = $op.to-json(:sorted-keys);
+
+class MyStatus is WWW::GCloud::R::Status {
+    has Str $.helper = "not for json";
+}
+
+$gcloud.config.map-type: WWW::GCloud::R::Status => MyStatus;
+
+$op = $gcloud.gc-ctx: {
+    WWW::GCloud::R::Operation.from-json($json);
+};
+
+isa-ok $op.error, MyStatus, "use class is used when map is isntalled";
+
+# The recommended way
+class MyOp is gc-wrap(WWW::GCloud::R::Operation) {
+    has Bool:D $.a-flag = False;
+}
+
+$gcloud.config.map-type: MyOp;
+
+$op = $gcloud.gc-ctx: {
+    WWW::GCloud::R::Operation.from-json($json);
+};
+
+isa-ok $op, MyOp, "gc-wrap trait simplifies life";
+is $op.to-json(:sorted-keys), $unwrapped-op-json, "user class attribute doesn't alter JSON serialization";
