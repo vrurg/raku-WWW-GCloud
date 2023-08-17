@@ -103,6 +103,15 @@ class MyBoundingPoly is gc-wrap(WWW::GCloud::R::Vision::BoundingPoly) {
 
 See *examples/basic-usage.raku* and *t/050-type-map.rakutest*.
 
+Some API conventions
+--------------------
+
+Most methods mapping into the actual REST calls return either a [`Promise`](https://docs.raku.org/type/Promise) or a [`Supply`](https://docs.raku.org/type/Supply). The latter is by default applies to methods which returns lists, especially when the list is paginated by the service. For example, method `list` of `projects` resource of `resource-manager` API returns a [`Supply`](https://docs.raku.org/type/Supply).
+
+[`Promise`](https://docs.raku.org/type/Promise), apparently, would be broken in case of any error, including the errors reported by the Google Cloud.
+
+For successfull calls the value of a kept [`Promise`](https://docs.raku.org/type/Promise) depends on the particular method. Sometimes it could be a plain [`Bool`](https://docs.raku.org/type/Bool), more often it would be an instance of a `WWW::GCloud::R::` record. On occasion a `Cro::HTTP::Response` itself can be produced in which case it is likely to get `WWW::GCloud::HTTP::Stream` mixin which allows to send response body into a file or any other kind of `IO::Handle`.
+
 A Couple Of Recommendations
 ---------------------------
 
