@@ -46,6 +46,8 @@ The Status
 
 This is pre-alfa, pre-beta, pre-anything. It is incomplete, sometimes not well enough though out, etc., etc., etc. If you miss a method, an API, whatever – best is to submit a PR or implement a new missing API. It shouldn't be a big deal, a lot can be done by using the "By Example" textbook receipes!
 
+Do not hesitate to get in touch with me would you need any help. I know it could be annoying when a complex module has little to none docs. I'll do my best to fix the situation. But until then feel free to open an issue in the [GitHub repository](https://github.com/vrurg/raku-WWW-GCloud/issues), even if it's just a question.
+
 WWW::GCloud Object Structure
 ----------------------------
 
