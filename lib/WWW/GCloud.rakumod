@@ -32,6 +32,7 @@ has Str:D $.access-token is mooish(:lazy);
 has Pair:D $.http-auth-header is mooish(:lazy);
 
 has Mu:D %!APIs;
+has $!API-lock = Lock.new;
 
 method build-access-token {
     my $gcloud = which('gcloud');
@@ -49,12 +50,14 @@ method create(Mu \type, |c) {
 }
 
 method get-API-object(::?CLASS:D: Str:D $api-name --> Mu:D) {
-    without %!APIs{$api-name} {
-        my Mu:U \api-class := self.^API-class($api-name);
-        %!APIs{$api-name} := api-class.new(:gcloud(self), :$.config);
-    }
+    $!API-lock.protect: {
+        without %!APIs{$api-name} {
+            my Mu:U \api-class := self.^API-class($api-name);
+            %!APIs{$api-name} := api-class.new(:gcloud(self), :$.config);
+        }
 
-    %!APIs{$api-name}
+        %!APIs{$api-name}
+    }
 }
 
 method http-client { HTTPClient }
