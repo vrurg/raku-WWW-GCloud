@@ -5,7 +5,7 @@ use WWW::GCloud::HOW::RecordWrapper;
 use WWW::GCloud::X;
 use WWW::GCloud::Utils;
 
-INIT PROCESS::<$WWW-GCLOUD-CONFIG> = ::?CLASS;
+PROCESS::<$WWW-GCLOUD-CONFIG> = ::?CLASS;
 
 has Mu %!type-map{Mu};
 
