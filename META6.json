@@ -1,5 +1,5 @@
 {
-    "api": "0.0.1",
+    "api": "0.0.2",
     "auth": "zef:vrurg",
     "authors": [
         "Vadim Belman"
@@ -28,7 +28,6 @@
         "WWW::GCloud::Configurable": "lib/WWW/GCloud/Configurable.rakumod",
         "WWW::GCloud::CPromise": "lib/WWW/GCloud/CPromise.rakumod",
         "WWW::GCloud::HOW::APIRecord": "lib/WWW/GCloud/HOW/APIRecord.rakumod",
-        "WWW::GCloud::HOW::APIRegistry": "lib/WWW/GCloud/HOW/APIRegistry.rakumod",
         "WWW::GCloud::HOW::RecordWrapper": "lib/WWW/GCloud/HOW/RecordWrapper.rakumod",
         "WWW::GCloud::HTTP::Stream": "lib/WWW/GCloud/HTTP/Stream.rakumod",
         "WWW::GCloud::Jsony": "lib/WWW/GCloud/Jsony.rakumod",
@@ -88,5 +87,5 @@
     "test-depends": [
         "Test::Async:ver<0.1.15+>:auth<zef:vrurg>"
     ],
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
