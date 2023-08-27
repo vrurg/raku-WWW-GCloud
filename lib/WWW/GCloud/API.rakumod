@@ -216,7 +216,7 @@ multi method paginate( ::?CLASS:D:
 }
 
 method register-API {
-    WWW::GCloud.^register-API(::?CLASS, $api-name);
+    WWW::GCloud.register-api(::?CLASS, $api-name);
 }
 
 BEGIN {

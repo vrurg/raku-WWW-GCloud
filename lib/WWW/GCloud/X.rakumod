@@ -31,6 +31,17 @@ module WWW::GCloud::X {
         }
     }
 
+    class DuplicateAPI does Core {
+        has Str:D $.api-name is required;
+        has Mu:U $.old-class is required;
+        has Mu:U $.new-class is required;
+        method message {
+            "Attempt to register a duplicate implementation for API '$.api-name';"
+                ~ " previously registered with " ~ $.old-class.^name
+                ~ " but new attempt is made with " ~ $.new-class.^name
+        }
+    }
+
     class Cmd does Core {
         has Proc:D $.proc is required;
         method message {
@@ -82,6 +93,14 @@ module WWW::GCloud::X {
         }
     }
 
+    class NoAlias does Core {
+        has Str:D $.alias is required;
+
+        method message {
+            "No alias '" ~ $.alias ~ "' is registered by " ~ self.message-origin-type
+        }
+    }
+
     role API does Core {
         has Str:D $.api-name is required;
         has Str $.resource;
@@ -90,14 +109,6 @@ module WWW::GCloud::X {
         method !message-where {
             |("method '" ~  |($_ ~ "." with $.resource) ~ $.method ~ "' of " with $.method)
             ~ "'" ~ $.api-name ~ "' API"
-        }
-    }
-
-    class NoAlias does Core {
-        has Str:D $.alias is required;
-
-        method message {
-            "No alias '" ~ $.alias ~ "' is registered by " ~ self.message-origin-type
         }
     }
 

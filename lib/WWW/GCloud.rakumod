@@ -14,18 +14,13 @@ use WWW::GCloud::X;
 
 also does WWW::GCloud::Configurable;
 
-# Does the CORE Promise implement .andthen and .orelse?
+# Does the CORE Promise implements .andthen and .orelse?
 our constant CORE-PROMISE-OK = $*RAKU.compiler.version >= v2023.06.99.gacd.8.cc.450;
 
 our constant HTTPClient =
     CORE-PROMISE-OK
         ?? Cro::HTTP::Client
         !! Cro::HTTP::Client but role :: { method request(|) { callsame() but WWW::GCloud::CPromise }; };
-
-BEGIN {
-    use WWW::GCloud::HOW::APIRegistry;
-    ::?CLASS.HOW does WWW::GCloud::HOW::APIRegistry;
-}
 
 has Str:D $.access-token is mooish(:lazy);
 
@@ -49,17 +44,6 @@ method create(Mu \type, |c) {
     type.new: :gcloud(self), |c
 }
 
-method get-API-object(::?CLASS:D: Str:D $api-name --> Mu:D) {
-    $!API-lock.protect: {
-        without %!APIs{$api-name} {
-            my Mu:U \api-class := self.^API-class($api-name);
-            %!APIs{$api-name} := api-class.new(:gcloud(self), :$.config);
-        }
-
-        %!APIs{$api-name}
-    }
-}
-
 method http-client { HTTPClient }
 
 proto method new-record(|) {*}
@@ -77,6 +61,53 @@ method gc-ctx-wrap(&code, WWW::GCloud::Config :$config) is also<gc-context-wrap>
         my $*WWW-GCLOUD-CONFIG = $config // $.config;
         &code(|c)
     }
+}
+
+my $api-classes = my %;
+method register-api(Mu:U \api-class, Str:D $api-name --> Nil) {
+    cas $api-classes, my sub ($_) {
+        if .EXISTS-KEY($api-name) {
+            unless .AT-KEY($api-name) === api-class {
+                WWW::Cloud::X::DuplicateAPI.new(
+                    :$api-name,
+                    old-class => .AT-KEY($api-name),
+                    new-class => api-class )
+                .throw
+            }
+            return $_
+        }
+
+        (my $copy = .clone).{$api-name} := api-class;
+        $copy
+    }
+}
+
+method get-API-object(::?CLASS:D: Str:D $api-name --> Mu:D) {
+    $!API-lock.protect: {
+        without %!APIs{$api-name} {
+            WWW::GCloud::X::NoAPI.new(:$api-name).throw
+                unless $api-classes.EXISTS-KEY($api-name);
+            my Mu:U \api-class := $api-classes.AT-KEY($api-name);
+            %!APIs{$api-name} := api-class.new(:gcloud(self), :$.config);
+        }
+
+        %!APIs{$api-name}
+    }
+}
+
+BEGIN {
+    ::?CLASS.^add_fallback(
+        -> $obj, $name {
+            $api-classes.EXISTS-KEY($name)
+        },
+        -> $obj, $name {
+            my &get-API-method = anon method { self.get-API-object($name) };
+            &get-API-method.set_name($name);
+            ::?CLASS.^add_method($name, &get-API-method);
+            ::?CLASS.^compose;
+            &get-API-method;
+        }
+    )
 }
 
 our sub META6 { $?DISTRIBUTION.meta }
