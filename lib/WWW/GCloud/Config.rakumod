@@ -14,17 +14,20 @@ my \RecordType = resolve-package("WWW::GCloud::Record");
 
 proto method map-type(|) {*}
 multi method map-type(::?CLASS:D: WWW::GCloud::Jsony:U \from, Mu:U \into --> Nil) {
-    unless into ~~ from {
-        WWW::GCloud::X::Config::BadWrapType.new(:type(into), :what("a descendant of '" ~ from.^name ~ "'")).throw
+    my \nominal-from = maybe-nominalize(from);
+    unless into ~~ nominal-from {
+        WWW::GCloud::X::Config::BadWrapType.new(
+            :type(into),
+            :what("a descendant of '" ~ nominal-from.^name ~ "'") ).throw
     }
-    %!type-map{from} := into;
+    %!type-map{nominal-from} := into;
 }
 multi method map-type(::?CLASS:D: Mu:U \type --> Nil) is default {
     unless type.HOW ~~ WWW::GCloud::HOW::RecordWrapper {
         WWW::GCloud::X::Config::BadWrapType.new(:type(type), :what<gc-wrap>).throw
     }
 
-    my Mu $wrapper := type.WHAT;
+    my Mu $wrapper := maybe-nominalize(type);
     my Mu $wrappee;
 
     WRAPEE:
@@ -58,6 +61,7 @@ method map-types(::?CLASS:D: *@mappings where .all ~~ Mu:U | Pair:D --> Nil) {
 
 proto method type-from(|) {*}
 multi method type-from(::?CLASS:D: WWW::GCloud::Jsony:U \from --> Mu:U) is raw {
-    %!type-map{from}:exists ?? %!type-map{from} !! from
+    my Mu \nominal-from = maybe-nominalize(from);
+    %!type-map{nominal-from}:exists ?? %!type-map{nominal-from} !! nominal-from
 }
-multi method type-from(::?CLASS:U: \from) is raw { from }
+multi method type-from(::?CLASS:U: \from) is raw { maybe-nominalize(from) }

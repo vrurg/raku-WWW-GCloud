@@ -26,6 +26,10 @@ sub gen-mime-boundary(Str:D $prefix="gcld") is export {
     "$prefix=_" ~ crypt_random_UUIDv4
 }
 
+sub maybe-nominalize(Mu \type --> Mu) is raw is export {
+    type.HOW.archetypes.nominalizable ?? type.^nominalize !! type.WHAT
+}
+
 {
     my $pkg-cache = my Mu %;
     my $rlock = Lock.new;

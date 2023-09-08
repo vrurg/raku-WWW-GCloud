@@ -16,10 +16,51 @@ method compose_attributes(Mu \obj, |) {
         # Mark any non-skipped attribute as explicit `is json`
         &trait_mod:<is>($attr, :json) unless $attr ~~ JSON::OptIn::OptedInAttribute;
 
-        if $attr.type ~~ WWW::GCloud::Jsony {
-            unless $attr ~~ JSON::Unmarshal::CustomUnmarshaller {
-                &trait_mod:<is>($attr, :unmarshalled-by('from-json'));
+
+        unless $attr ~~ JSON::Unmarshal::CustomUnmarshaller {
+            my Mu \attr-type = $attr.type;
+            my $unmarshaller;
+
+            my proto sub is-jsony(|) {*}
+            multi sub is-jsony(WWW::GCloud::Jsony --> True) {}
+            multi sub is-jsony(Positional \type) { samewith(type.of) }
+            multi sub is-jsony(Associative \type) { samewith(type.of) || samewith(type.keyof) }
+            multi sub is-jsony(Mu --> False) {}
+
+
+            if attr-type ~~ WWW::GCloud::Jsony {
+                $unmarshaller := 'from-json';
             }
+            elsif is-jsony(attr-type) {
+                my \of-type = attr-type.of;
+                my proto sub of-unmarshal(|) {*}
+                multi sub of-unmarshal(\json, WWW::GCloud::Jsony \type) {
+                    type.from-json(json)
+                }
+                multi sub of-unmarshal(\json, Positional \type) is raw {
+                    if is-jsony(type) {
+                        my \of-type = type.of;
+                        return (type.HOW ~~ Metamodel::ClassHOW ?? type.new !! Array[of-type].new) =
+                                eager json.map({ of-unmarshal($_, of-type) })
+                    }
+                    unmarshal(json, type)
+                }
+                multi sub of-unmarshal(\json, Associative \type) is raw {
+                    if is-jsony(type) {
+                        my \of-type = type.of;
+                        my \key-type = type.keyof;
+                        return (type.HOW ~~ Metamodel::ClassHOW ?? type.new !! Hash[of-type, key-type].new ) =
+                                eager json.map({ of-unmarshal(.key, key-type) => of-unmarshal(.value, of-type)
+                        })
+                    }
+                    unmarshal(json, type)
+                }
+                multi sub of-unmarshal(\json, Mu) { json }
+
+                $unmarshaller := -> \json { of-unmarshal(json, attr-type) };
+            }
+
+            &trait_mod:<is>($attr, :unmarshalled-by($_)) with $unmarshaller;
         }
 
         next if $attr ~~ AttrX::Mooish::Attribute;
