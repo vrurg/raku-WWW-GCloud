@@ -1,7 +1,11 @@
 =begin pod
 =head1 CHANGELOG
 
-=head v.0.0.2
+=head v0.0.3
+
+=item Fix deserialization of nominalizables and comples hashes or arrays when there are type maps specified
+
+=head v0.0.2
 
 =item Lock-protect access to API objects hash
 
