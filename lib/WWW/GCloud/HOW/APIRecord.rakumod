@@ -1,11 +1,12 @@
 use v6.e.PREVIEW;
 unit role WWW::GCloud::HOW::APIRecord;
 
+use AttrX::Mooish::Attribute;
 use AttrX::Mooish;
 use JSON::Marshal;
 use JSON::OptIn;
 use JSON::Unmarshal;
-use AttrX::Mooish::Attribute;
+
 use WWW::GCloud::Utils;
 use WWW::GCloud::Jsony;
 
@@ -16,23 +17,16 @@ method compose_attributes(Mu \obj, |) {
         # Mark any non-skipped attribute as explicit `is json`
         &trait_mod:<is>($attr, :json) unless $attr ~~ JSON::OptIn::OptedInAttribute;
 
+        my Mu \attr-type = $attr.type;
+
         unless $attr ~~ JSON::Unmarshal::CustomUnmarshaller {
-            my Mu \attr-type = $attr.type;
             my $unmarshaller;
-            my $marshaller;
 
             my proto sub is-jsony(|) {*}
             multi sub is-jsony(WWW::GCloud::Jsony --> True) is pure {}
             multi sub is-jsony(Positional \type) is pure { samewith(type.of) }
             multi sub is-jsony(Associative \type) is pure { samewith(type.of) || samewith(type.keyof) }
             multi sub is-jsony(Mu --> False) is pure {}
-
-            my proto sub is-gc-enum(|) {*}
-            multi sub is-gc-enum(Enumeration \type) is pure { type ~~ WWW::GCloud::Jsony }
-            multi sub is-gc-enum(Positional \type)  is pure { samewith(type.of) }
-            # For enumerations we only take into account hash values
-            multi sub is-gc-enum(Associative \type) is pure { samewith(type.of) }
-            multi sub is-gc-enum(Mu --> False) is pure {}
 
             if attr-type ~~ WWW::GCloud::Jsony {
                 $unmarshaller := 'from-json';
@@ -71,6 +65,19 @@ method compose_attributes(Mu \obj, |) {
                 $unmarshaller := -> \json { of-unmarshal(json, attr-type) };
             }
 
+            &trait_mod:<is>($attr, :unmarshalled-by($_)) with $unmarshaller;
+        }
+
+        unless $attr ~~ JSON::Marshal::CustomMarshaller {
+            my $marshaller;
+
+            my proto sub is-gc-enum(|) {*}
+            multi sub is-gc-enum(Enumeration \type) is pure { type ~~ WWW::GCloud::Jsony }
+            multi sub is-gc-enum(Positional \type)  is pure { samewith(type.of) }
+            # For enumerations we only take into account hash values
+            multi sub is-gc-enum(Associative \type) is pure { samewith(type.of) }
+            multi sub is-gc-enum(Mu --> False) is pure {}
+
             if attr-type ~~ Enumeration & WWW::GCloud::Jsony {
                 $marshaller := 'to-json';
             }
@@ -90,8 +97,7 @@ method compose_attributes(Mu \obj, |) {
                 $marshaller := &of-marshal;
             }
 
-            &trait_mod:<is>($attr, :unmarshalled-by($_)) with $unmarshaller;
-            &trait_mod:<is>($attr, :marshalled-by($_))   with $marshaller;
+            &trait_mod:<is>($attr, :marshalled-by($_)) with $marshaller;
         }
 
         next if $attr ~~ AttrX::Mooish::Attribute;
