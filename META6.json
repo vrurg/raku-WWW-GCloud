@@ -11,7 +11,7 @@
         "File::Which:ver<1.0.4>",
         "Crypt::Random:ver<0.4.1>",
         "MIME::Types:ver<0.2>:auth<zef:raku-community-modules>",
-        "JSON::Marshal:ver<0.0.24>:auth<zef:jonathanstowe>:api<1.0>",
+        "JSON::Marshal:ver<0.0.25>:auth<zef:jonathanstowe>:api<1.0>",
         "JSON::Name:ver<0.0.7>:auth<zef:jonathanstowe>:api<1.0>",
         "JSON::Unmarshal:ver<0.15>:auth<zef:raku-community-modules>"
     ],
