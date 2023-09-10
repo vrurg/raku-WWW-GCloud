@@ -1,5 +1,8 @@
 use v6.e.PREVIEW;
 unit class WWW::GCloud::Config;
+
+use Method::Also;
+
 use WWW::GCloud::Jsony;
 use WWW::GCloud::HOW::RecordWrapper;
 use WWW::GCloud::X;
@@ -65,3 +68,8 @@ multi method type-from(::?CLASS:D: WWW::GCloud::Jsony:U \from --> Mu:U) is raw {
     %!type-map{nominal-from}:exists ?? %!type-map{nominal-from} !! nominal-from
 }
 multi method type-from(::?CLASS:U: \from) is raw { maybe-nominalize(from) }
+
+method gc-ctx(&code) is raw is also<gc-context> {
+    my $*WWW-GCLOUD-CONFIG = self;
+    &code()
+}
