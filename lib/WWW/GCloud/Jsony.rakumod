@@ -2,13 +2,37 @@ use v6.e.PREVIEW;
 unit role WWW::GCloud::Jsony;
 
 use JSON::Marshal;
-use JSON::Unmarshal:ver<0.15>:auth<zef:raku-community-modules>;
+use JSON::Unmarshal;
 
-method from-json($json, Bool :$warn = True, Bool :die(:$throw) = False --> ::?CLASS) {
-    my \dest-type = $*WWW-GCLOUD-CONFIG.type-from(self.WHAT);
-    unmarshal $json, dest-type, :$warn, :$throw, :opt-in
+method from-json(|) {...}
+method to-json(|) {...}
+
+# jsony-unmarshal and json-marshal are here to implement propagation of de-/serialization arguments.
+
+sub jsony-unmarshal($json, Mu \dest-type, *%params) is raw is export {
+    with %*WWW-GCLOUD-UNMARSHAL-PARAMS {
+        for .kv -> $key, $argv {
+            %params{$key} //= $argv;
+        }
+    }
+    {
+        my %*WWW-GCLOUD-UNMARSHAL-PARAMS := %params;
+        # Re-inject :$warn and :$throw to be used as defaults because if omitted from arguments they wouldn't be in
+        # the %params capture.
+        return unmarshal($json, dest-type, |%params)
+    }
 }
 
-method to-json(Bool:D :$skip-null = True, Bool:D :$sorted-keys = False, Bool:D :$pretty = False --> Str) {
-    marshal(self, :$skip-null, :$sorted-keys, :$pretty, :opt-in)
+sub jsony-marshal(Mu \obj, *%params ) is raw is export {
+    with %*WWW-GCLOUD-MARSHAL-PARAMS {
+        for .kv -> $key, $argv {
+            %params{$key} //= $argv;
+        }
+    }
+    {
+        my %*WWW-GCLOUD-MARSHAL-PARAMS := %params;
+        # Re-inject parameters to be used as defaults because if omitted from arguments they wouldn't be in
+        # the %params capture.
+        return marshal(obj, |%params)
+    }
 }

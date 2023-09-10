@@ -1,0 +1,36 @@
+use v6.e.PREVIEW;
+use Test::Async;
+
+use WWW::GCloud;
+use WWW::GCloud::Record;
+
+plan 2;
+
+enum Foo is gc-enum (:Foo1<sym1>, :Foo2<sym2>, :Foo3<sym3>, :Foo4<sym4>);
+
+class GCRecord1 is gc-record {
+    has Foo $.value;
+    has Foo:D @.values = Foo1, Foo2, Foo1;
+}
+
+my $rec1 = GCRecord1.new(:value(Foo2));
+
+class GCRecord2 is gc-record {
+    has GCRecord1 $.rec1;
+    has GCRecord1:D @.recs;
+}
+
+my $rec2 =
+    GCRecord2.new:
+        :$rec1,
+        recs => (
+            GCRecord1.new(:value(Foo3), :values(Foo2, Foo3, Foo4)),
+            GCRecord1.new(:values(Foo4, Foo3))
+        );
+
+my $expected = '{"rec1":{"value":"sym2","values":["sym1","sym2","sym1"]},"recs":[{"value":"sym3","values":["sym2","sym3","sym4"]},{"value":null,"values":["sym4","sym3"]}]}';
+is $rec2.to-json(:!skip-null, :sorted-keys), $expected, "enums seralized by their values";
+
+my $rec = GCRecord2.from-json($expected);
+
+cmp-deeply $rec, $rec2, "deserialization succeed";

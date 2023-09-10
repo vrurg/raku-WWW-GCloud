@@ -7,7 +7,7 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-my Str enum LifecycleState is export(:types) (
+my Str enum LifecycleState is gc-enum is export(:types) (
     GCPSUnspecified => "LIFECYCLE_STATE_UNSPECIFIED",
     GCPSActive => "ACTIVE",
     GCPSDeleteRequested => "DELETE_REQUESTED",
