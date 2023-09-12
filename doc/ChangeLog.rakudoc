@@ -1,17 +1,17 @@
 =begin pod
 =head1 CHANGELOG
 
-=head v0.0.4
+=head2 v0.0.4
 
 =item Mostly fix serialization of enums
 =item Added C<gc-enum> trait to mark enums meant for serialization
 =item Added C<gc-ctx-wrap>/C<gc-context-wrap> methods to C<WWW::GCloud::Config>
 
-=head v0.0.3
+=head2 v0.0.3
 
 =item Fix deserialization of nominalizables and comples hashes or arrays when there are type maps specified
 
-=head v0.0.2
+=head2 v0.0.2
 
 =item Lock-protect access to API objects hash
 
