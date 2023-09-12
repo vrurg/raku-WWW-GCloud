@@ -73,3 +73,10 @@ method gc-ctx(&code) is raw is also<gc-context> {
     my $*WWW-GCLOUD-CONFIG = self;
     &code()
 }
+
+method gc-ctx-wrap(&code) is also<gc-context-wrap> is raw {
+    -> |c is raw {
+        my $*WWW-GCLOUD-CONFIG = self;
+        &code(|c)
+    }
+}
