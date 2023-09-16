@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v0.0.5
+------
+
+  * Fix type mapping for chained inheritance cases, i.e. when `Child2` is wrapping `Child1` which, in turn, wraps around a `Base` `WWW::GCloud::Record` class.
+
 v0.0.4
 ------
 

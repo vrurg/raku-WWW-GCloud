@@ -1,6 +1,11 @@
 =begin pod
 =head1 CHANGELOG
 
+=head2 v0.0.5
+
+=item Fix type mapping for chained inheritance cases, i.e. when C<Child2> is wrapping C<Child1> which, in turn, wraps
+around a C<Base> C<WWW::GCloud::Record> class.
+
 =head2 v0.0.4
 
 =item Mostly fix serialization of enums
