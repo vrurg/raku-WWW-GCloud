@@ -36,6 +36,9 @@ multi method map-type(::?CLASS:D: Mu:U \type --> Nil) is default {
     WRAPEE:
     loop {
         $wrappee := $wrapper.^gc-wrappee;
+
+        self.map-type: $wrappee, type;
+
         if $wrappee.HOW ~~ WWW::GCloud::HOW::RecordWrapper {
             $wrapper := $wrappee;
         }
@@ -47,8 +50,6 @@ multi method map-type(::?CLASS:D: Mu:U \type --> Nil) is default {
                 :type($wrappee), :wrapper($wrapper), :what('a gc-wrap or a gc-record') ).throw
         }
     }
-
-    self.map-type: $wrappee, $wrapper
 }
 multi method map-type(::?CLASS:D: Pair:D $mapping --> Nil) {
     self.map-type: $mapping.key.WHAT, $mapping.value.WHAT
