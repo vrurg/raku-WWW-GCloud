@@ -9,6 +9,7 @@
         "Cro::HTTP:ver<0.8.9>:auth<zef:cro>",
         "AttrX::Mooish:auth<zef:vrurg>:api<1.0.0+>:ver<1.0.4+>",
         "File::Which:ver<1.0.4>",
+        "Method::Also:ver<0.0.8>:auth<zef:lizmat>",
         "Crypt::Random:ver<0.4.1>",
         "MIME::Types:ver<0.2>:auth<zef:raku-community-modules>",
         "JSON::Marshal:ver<0.0.25>:auth<zef:jonathanstowe>:api<1.0>",
