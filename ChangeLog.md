@@ -1,27 +1,25 @@
-CHANGELOG
-=========
+# CHANGELOG
 
-v0.0.5
-------
+  - **v0.0.6**
+    
+      - Rebase onto [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class)
 
-  * Fix type mapping for chained inheritance cases, i.e. when `Child2` is wrapping `Child1` which, in turn, wraps around a `Base` `WWW::GCloud::Record` class.
+  - **v0.0.5**
+    
+      - Fix type mapping for chained inheritance cases, i.e. when `Child2` is wrapping `Child1` which, in turn, wraps around a `Base` `WWW::GCloud::Record` class.
 
-v0.0.4
-------
+  - **v0.0.4**
+    
+      - Mostly fix serialization of enums
+    
+      - Added `gc-enum` trait to mark enums meant for serialization
+    
+      - Added `gc-ctx-wrap`/`gc-context-wrap` methods to `WWW::GCloud::Config`
 
-  * Mostly fix serialization of enums
+  - **v0.0.3**
+    
+      - Fix deserialization of nominalizables and comples hashes or arrays when there are type maps specified
 
-  * Added `gc-enum` trait to mark enums meant for serialization
-
-  * Added `gc-ctx-wrap`/`gc-context-wrap` methods to `WWW::GCloud::Config`
-
-v0.0.3
-------
-
-  * Fix deserialization of nominalizables and comples hashes or arrays when there are type maps specified
-
-v0.0.2
-------
-
-  * Lock-protect access to API objects hash
-
+  - **v0.0.2**
+    
+      - Lock-protect access to API objects hash
