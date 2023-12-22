@@ -2,19 +2,37 @@ use v6.e.PREVIEW;
 use Test::Async;
 
 use WWW::GCloud::Record;
+use AttrX::Mooish;
+use JSON::Class:auth<zef:vrurg>;
 
-plan 7;
+plan 8;
 
-class TestRec is gc-record {
+class SubRec {
+    has $.x;
+}
+
+class TestRec is json(:implicit, :sorted-keys) is gc-record {
     has Str $.myFieldOfSomeKind;
     has Str $.kebabifyThisONEToo;
+    has SubRec $.notForUse;
+    has Int $.FooBar is json(:skip, :alias<fubar>);
 }
+
+diag TestRec.^can('my-field-of-some-kind');
+diag TestRec.^json-is-lazy;
+diag "ATTRS: ", TestRec.^attributes.map({ "(" ~ .name ~ " of " ~ .^name ~ ")" });
+diag TestRec.^json-attrs(:k);
+# diag TestRec.^json-attrs(:v);
 
 cmp-deeply TestRec.new(:my-field-of-some-kind("is set"), :kebabify-this-onetoo("set too")),
            TestRec.new(:myFieldOfSomeKind("is set"), :kebabifyThisONEToo("set too")),
            "attribute names of a 'is gc-record' class are kebabified";
+#  diag TestRec.new(:my-field-of-some-kind("is set"), :kebabify-this-onetoo("set too")).my-field-of-some-kind;
+
+is TestRec.new(fubar => 31415926).FooBar, 31415926, ":alias attribute of `is json` trait";
 
 class TestRecs is gc-record(:paginating(TestRec, "testRecords")) {}
+class TestRecs2 is gc-record(:paginating(TestRec)) {}
 
 ok ?TestRecs.^can('testRecords'), "paginating record has the specified camel case attribute accessor";
 ok ?TestRecs.^can('test-records'), "paginating record has kebabified attribute accessor";

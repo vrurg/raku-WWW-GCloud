@@ -1,7 +1,6 @@
 use v6.e.PREVIEW;
 unit module WWW::GCloud::Utils;
 use nqp;
-use AttrX::Mooish;
 use Crypt::Random::Extra;
 use MIME::Types;
 
@@ -13,13 +12,6 @@ our sub kebabify-name(Str:D $name is copy) is export(:kebabify) {
     $name ~~ s:g/<lower> <upper> | $<lower>="" _ $<upper>=""/$<lower>-$<upper>/
         ?? $name.lc
         !! Nil
-}
-
-our sub kebabify-attr(Attribute:D $attr) is export(:kebabify) {
-    with kebabify-name($attr.name.substr(2)) {
-        &trait_mod:<is>($attr, :mooish(:alias($_)))
-            unless $attr.package.^can($_);
-    }
 }
 
 sub gen-mime-boundary(Str:D $prefix="gcld") is export {

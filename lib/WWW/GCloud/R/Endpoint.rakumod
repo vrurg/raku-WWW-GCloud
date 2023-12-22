@@ -9,4 +9,4 @@ also is gc-record;
 has Str $.name;
 has Str:D @.aliases;
 has Str $.target;
-has Bool $.allowCors is mooish(:alias<allow-cors>);
+has Bool $.allowCors;

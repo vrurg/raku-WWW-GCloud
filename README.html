@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>README</title>
+    <meta charset="UTF-8">
+    <style>hr,
+img {
+    box-sizing: content-box
+}
+body::after,
+body::before,
+hr::after,
+hr::before {
+    display: table;
+    content: ""
+}
+a,
+a:not([href]) {
+    text-decoration: none
+}
+
+hr,
+svg:not(:root) {
+    overflow: hidden
+}
+
+img,
+table tr {
+    background-color: #fff
+}
+
+pre,
+table {
+    overflow: auto
+}
+
+dl,
+dl dt,
+hr,
+pre code,
+pre>code,
+td,
+th {
+    padding: 0
+}
+
+input,
+pre code {
+    overflow: visible
+}
+
+pre,
+pre code {
+    word-wrap: normal
+}
+
+body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    color: #333;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    width: 820px;
+    margin: 2em auto;
+}
+
+a {
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+    color: #4078c0
+}
+
+a:active,
+a:hover {
+    outline-width: 0;
+    text-decoration: underline
+}
+
+h1 {
+    margin: .67em 0
+}
+
+img {
+    border-style: none;
+    max-width: 100%
+}
+
+h1,
+h2 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eee
+}
+
+input {
+    font: inherit;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit
+}
+
+* {
+    box-sizing: border-box
+}
+
+strong {
+    font-weight: 600
+}
+
+body::after,
+hr::after {
+    clear: both
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: 100%
+}
+
+blockquote {
+    margin: 0;
+    padding: 0 1em;
+    color: #777;
+    border-left: .25em solid #ddd
+}
+
+ol ol,
+ul ol {
+    list-style-type: lower-roman
+}
+
+ol ol ol,
+ol ul ol,
+ul ol ol,
+ul ul ol {
+    list-style-type: lower-alpha
+}
+
+dd {
+    margin-left: 0
+}
+
+code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace
+}
+
+pre {
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace
+}
+
+input {
+    -webkit-font-feature-settings: "liga" 0;
+    font-feature-settings: "liga" 0
+}
+
+body>:first-child {
+    margin-top: 0!important
+}
+
+body>:last-child {
+    margin-bottom: 0!important
+}
+
+a:not([href]) {
+    color: inherit
+}
+
+blockquote,
+dl,
+ol,
+p,
+pre,
+table,
+ul {
+    margin-top: 0;
+    margin-bottom: 16px
+}
+
+hr {
+    background: #e7e7e7;
+    height: .25em;
+    margin: 24px 0;
+    border: 0
+}
+
+blockquote>:first-child {
+    margin-top: 0
+}
+
+blockquote>:last-child {
+    margin-bottom: 0
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25
+}
+
+dl dt,
+table th {
+    font-weight: 700
+}
+
+h1 code,
+h1 tt,
+h2 code,
+h2 tt,
+h3 code,
+h3 tt,
+h4 code,
+h4 tt,
+h5 code,
+h5 tt,
+h6 code,
+h6 tt {
+    font-size: inherit
+}
+
+h1 {
+    font-size: 2em
+}
+
+h2 {
+    font-size: 1.5em
+}
+
+h3 {
+    font-size: 1.25em
+}
+
+h4 {
+    font-size: 1em
+}
+
+h5 {
+    font-size: .875em
+}
+
+h6 {
+    font-size: .85em;
+    color: #777
+}
+
+ol,
+ul {
+    padding-left: 2em
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+li>p {
+    margin-top: 16px
+}
+
+li+li {
+    margin-top: .25em
+}
+
+dl dt {
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic
+}
+
+dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px
+}
+
+table td,
+table th {
+    padding: 6px 13px;
+    border: 1px solid #ddd
+}
+
+table tr {
+    border-top: 1px solid #ccc
+}
+
+table tr:nth-child(2n) {
+    background-color: #f8f8f8
+}
+
+code {
+    padding: .2em 0;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(0, 0, 0, .04);
+    border-radius: 3px
+}
+
+code::after,
+code::before {
+    letter-spacing: -.2em;
+    content: "\00a0"
+}
+
+pre>code {
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: 0 0;
+    border: 0
+}
+
+pre {
+    padding: 16px;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border-radius: 3px
+}
+
+pre code {
+    display: inline;
+    max-width: auto;
+    margin: 0;
+    line-height: inherit;
+    background-color: transparent;
+    border: 0
+}
+
+pre code::after,
+pre code::before {
+    content: normal
+}
+
+kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    line-height: 10px;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    border-bottom-color: #bbb;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #bbb
+}
+
+hr {
+    border-bottom-color: #eee
+}
+</style>
+
+    
+<style class="build-tools-gen-doc">.toc-level-1 .toc-text { padding-left: 1.5em; }
+.toc-level-2 .toc-text { padding-left: 2.5em; }
+.toc-level-3 .toc-text { padding-left: 3.5em; }
+.toc-level-4 .toc-text { padding-left: 4.5em; }
+.toc-level-5 .toc-text { padding-left: 5.5em; }
+#TOC * { border-width: 0; }
+li > p { margin: inherit; }
+li > .pod-block-code { margin-top: 16px; }
+</style></head>
+
+<body class="pod">
+    <div id="___top"></div>
+    <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+<tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#NAME">NAME</a></td></tr>
+<tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#SYNOPSIS">SYNOPSIS</a></td></tr>
+<tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#DESCRIPTION">DESCRIPTION</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#The_Status">The Status</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#WWW::GCloud_Object_Structure">WWW::GCloud Object Structure</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Framework_Namespacing">Framework Namespacing</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Type_Mapping">Type Mapping</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Some_API_conventions">Some API conventions</a></td></tr>
+<tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#A_Couple_Of_Recommendations">A Couple Of Recommendations</a></td></tr>
+<tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#COPYRIGHT">COPYRIGHT</a></td></tr>
+<tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#LICENSE">LICENSE</a></td></tr>
+
+</table>
+</nav>
+
+
+    <div class="pod-body">
+    <h1 id="NAME"><a class="u" href="#___top" title="go to top of document">NAME</a></h1>
+<p><code>WWW::GCloud</code> - Core of Google Cloud REST API framework</p>
+<h1 id="SYNOPSIS"><a class="u" href="#___top" title="go to top of document">SYNOPSIS</a></h1>
+<pre class="pod-block-code">use v6.e.PREVIEW;
+use WWW::GCloud;
+use WWW::GCloud::API::ResourceMgr;
+
+my $gcloud = WWW::GCloud.new;
+
+say "Available projects:";
+react whenever $gcloud.resource-manager.projects.list -&gt; $project {
+    say "  * ", $project.project-id;
+}
+
+my $new-project-id = "my-unique-project-name";
+await $gcloud.resource-manager.projects.create(
+    $gcloud.resource-manager.new-project(
+        "This is project description",
+        id =&gt; $new-project-id,
+        labels =&gt; { :label1('label_value'), :label2("another_value") } );
+).andthen({
+    say .result; # Would dump an instance of WWW::GCloud::R::Operation
+})
+.orelse({
+    # Choose how to react to an error
+    note "Can't create a new project '$new-project-id'";
+    .cause.rethrow
+});
+</pre>
+<h1 id="DESCRIPTION"><a class="u" href="#___top" title="go to top of document">DESCRIPTION</a></h1>
+<p>This is going to be my worst documentation so far! I apologize for this, but simply unable to write it yet. Will provide a few important notes though.</p>
+<p>So far, best way to start with this module is to explore <em>examples/</em> and <em>t/</em> directories. Apparently, inspecting the sources in <em>lib/</em> would be the most helpful!</p>
+<h2 id="The_Status"><a class="u" href="#___top" title="go to top of document">The Status</a></h2>
+<p>This is pre-alfa, pre-beta, pre-anything. It is incomplete, sometimes not well enough though out, etc., etc., etc. If you miss a method, an API, whatever – best is to submit a PR or implement a new missing API. It shouldn't be a big deal, a lot can be done by using the "By Example" textbook receipes!</p>
+<p>Do not hesitate to get in touch with me would you need any help. I know it could be annoying when a complex module has little to none docs. I'll do my best to fix the situation. But until then feel free to open an issue in the <a href="https://github.com/vrurg/raku-WWW-GCloud/issues">GitHub repository</a>, even if it's just a question.</p>
+<h2 id="WWW::GCloud_Object_Structure"><a class="u" href="#___top" title="go to top of document">WWW::GCloud Object Structure</a></h2>
+<p>Google Cloud structures its API into themed APIs like Resource Manager, Storage, Vision, etc. Each particular API, in turns, provides <em>resources</em> where methods belong. <code>WWW::GCloud</code> tries to follow the same pattern. Say, in the SYNOPSIS <code>$gcloud.resource-manager</code> is <code>WWW::GCloud::API::ResourceMgr</code> instance implementing <a href="https://cloud.google.com/resource-manager/reference/rest">Resource Manager API</a>. Then, <code>$gcloud.resource-manager.projects</code> is the implementation of <a href="https://cloud.google.com/resource-manager/reference/rest#rest-resource:-v1.projects"><code>projects</code> resource</a>.</p>
+<h2 id="Framework_Namespacing"><a class="u" href="#___top" title="go to top of document">Framework Namespacing</a></h2>
+<p>The framework is extensible. <code>WWW::GCloud</code> class by itself implements no APIs. New ones can be implemented any time. Basically, starting a new API module is as simple as doiing:</p>
+<pre class="pod-block-code">use v6.e.PREVIEW;
+unit class WWW::GCloud::API::NewOne;
+
+use WWW::GCloud::API;
+
+also does WWW::GCloud::API['new-one'];
+
+has $.base-url = 'https://storage.googleapis.com/newone/v1';
+</pre>
+<p>Now, with `use WWW::GCloud::API::NewOne;` a method <code>new-one</code> becomes automatically available with any instance of <code>WWW::GCloud</code>.</p>
+<p>As you can see, <code>WWW::GCloud::API::</code> namespace is used. Here is the list of standard namespaces:</p>
+<ul><li><p><strong><code>WWW::GCloud::API::</code></strong></p>
+<p>Apparently, any new API implementation must reside within this one.</p>
+</li>
+<li><p><strong><code>WWW::GCloud::R::</code></strong></p>
+<p>This is where record types are to be declared. For example, <code>WWW::GCloud::R::Operation</code> represents an <a href="https://cloud.google.com/resource-manager/reference/rest/Shared.Types/Operation">Operation</a>.</p>
+<p>The <code>R::</code> namespace itself is better be reserved for commonly used types of records. For an API-specific record it is recommended to use their own sub-spaces. <code>WWW::GCloud::API::Storage</code> is using <code>WWW::GCloud::R::Storage::</code>, for example.</p>
+</li>
+<li><p><strong><code>WWW::GCloud::RR::</code></strong></p>
+<p><code>RR</code> stands for <em>Record Roles</em>. This is where roles, used by record classes, are to be located. Same API sub-naming rule applies.</p>
+</li>
+</ul>
+<h2 id="Type_Mapping"><a class="u" href="#___top" title="go to top of document">Type Mapping</a></h2>
+<p>Sometimes it is useful to map a core class into a user's child class. For example, an output from text recognition APIs could be "patched" so that records using vertexes (like actual symbols detected) can be represented with user classes where user's own coordinate system is used. So, that instead of re-building our class based on what's returned by the API we can use lazy approaches to simply construct the parts we need:</p>
+<pre class="pod-block-code">use AttrX::Mooish;
+class MyBoundingPoly is gc-wrap(WWW::GCloud::R::Vision::BoundingPoly) {
+    has MyRect:D @.bounding-path;
+
+    method build-bounding-path {
+        self.vertices.map: { self.covert-point($^vertex) }
+    }
+}
+</pre>
+<p>See <em>examples/basic-usage.raku</em> and <em>t/050-type-map.rakutest</em>.</p>
+<h2 id="Some_API_conventions"><a class="u" href="#___top" title="go to top of document">Some API conventions</a></h2>
+<p>Most methods mapping into the actual REST calls return either a <a href="https://docs.raku.org/type/Promise"><code>Promise</code></a> or a <a href="https://docs.raku.org/type/Supply"><code>Supply</code></a>. The latter is by default applies to methods which returns lists, especially when the list is paginated by the service. For example, method <code>list</code> of <code>projects</code> resource of <code>resource-manager</code> API returns a <a href="https://docs.raku.org/type/Supply"><code>Supply</code></a>.</p>
+<p><a href="https://docs.raku.org/type/Promise"><code>Promise</code></a>, apparently, would be broken in case of any error, including the errors reported by the Google Cloud.</p>
+<p>For successfull calls the value of a kept <a href="https://docs.raku.org/type/Promise"><code>Promise</code></a> depends on the particular method. Sometimes it could be a plain <a href="https://docs.raku.org/type/Bool"><code>Bool</code></a>, more often it would be an instance of a <code>WWW::GCloud::R::</code> record. On occasion a <code>Cro::HTTP::Response</code> itself can be produced in which case it is likely to get <code>WWW::GCloud::HTTP::Stream</code> mixin which allows to send response body into a file or any other kind of <code>IO::Handle</code>.</p>
+<h2 id="A_Couple_Of_Recommendations"><a class="u" href="#___top" title="go to top of document">A Couple Of Recommendations</a></h2>
+<p>Consider using traits for declarations. For example, a new record class is best declared as:</p>
+<pre class="pod-block-code">use v6.e.PREVIEW;
+unit class WWW::GCloud::R::NewAapi::ARec;
+
+use WWW::GCloud::Record;
+
+also is gc-record;
+
+has Str $.someField;
+has Int $.aCounter;
+</pre>
+<p>The trait would automatically mark all record attributes (except where explicit `is json-skip` is applied) as JSON-serializable as if `is json` has been applied to them manually.</p>
+<p>Other useful traits are:</p>
+<ul><li><p><code>gc-wrap</code> from <code>WWW::GCloud::Record</code></p>
+</li>
+<li><p><code>gc-params</code> from <code>WWW::GCloud::QueryParams</code> (find its usages in API modules and see <em>t/040-query-params.rakutest</em>)</p>
+</li>
+<li><p><code>does</code> when used with <code>WWW::GCloud::API</code> automates registering of an API module with <code>WWW::GCloud</code></p>
+</li>
+</ul>
+<h1 id="COPYRIGHT"><a class="u" href="#___top" title="go to top of document">COPYRIGHT</a></h1>
+<p>(c) 2023, Vadim Belman &lt;vrurg@cpan.org&gt;</p>
+<h1 id="LICENSE"><a class="u" href="#___top" title="go to top of document">LICENSE</a></h1>
+<p>Artistic License 2.0</p>
+<p>See the <a href="LICENSE"><em>LICENSE</em></a> file in this distribution.</p>
+
+    </div>
+
+    
+</body>
+</html>

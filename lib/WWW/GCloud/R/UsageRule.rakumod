@@ -7,5 +7,5 @@ use WWW::GCloud::Record;
 also is gc-record;
 
 has Str $.selector;
-has Bool $.allowUnregisteredCalls is mooish(:alias<allow-unregistered-calls>);
-has Bool $.skipServiceControl is mooish(:alias<skip-service-control>);
+has Bool $.allowUnregisteredCalls;
+has Bool $.skipServiceControl;

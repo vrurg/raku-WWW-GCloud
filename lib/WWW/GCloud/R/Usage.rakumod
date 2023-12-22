@@ -10,5 +10,5 @@ also is gc-record;
 
 has Str:D @.requirements;
 has WWW::GCloud::R::UsageRule:D @.rules;
-has Str $.producerNotificationChannel is mooish(:alias<producer-notification-channel>);
-has WWW::GCloud::R::ServiceIdentity $.serviceIdentity is mooish(:alias<service-identity>);
+has Str $.producerNotificationChannel;
+has WWW::GCloud::R::ServiceIdentity $.serviceIdentity;

@@ -6,4 +6,4 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-has Str $.file_name is mooish(:alias<file-name>);
+has Str $.file_name;

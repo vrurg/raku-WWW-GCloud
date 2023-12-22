@@ -4,7 +4,7 @@
 =begin item
 B<v0.0.6>
 
-=item Rebase onto L«C<JSON::Class:auth<zef:vrurg>>|rakudoc:JSON::Class:auth<zef:vrurg>»
+=item Use L«C<JSON::Class:auth<zef:vrurg>>|rakudoc:JSON::Class:auth<zef:vrurg>» as the marshalling framework
 =end item
 
 =begin item

@@ -6,4 +6,4 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-has Str $.canonicalScopes is mooish(:alias<canonical-scopes>);
+has Str $.canonicalScopes;

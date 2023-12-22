@@ -6,7 +6,9 @@ use experimental :will-complain;
 use AttrX::Mooish;
 use Cro::HTTP::Client;
 use Cro::Uri;
+use JSON::Class::Jsonish:auth<zef:vrurg>;
 use JSON::Fast;
+
 use WWW::GCloud;
 use WWW::GCloud::Configurable;
 use WWW::GCloud::HTTP::Stream;
@@ -43,27 +45,12 @@ method create(Mu \type, |c) {
     type.new: :$!gcloud, :api(self), |c
 }
 
-method gc-ctx-wrap(&code) {
-    -> |c is raw {
-        my $*WWW-GCLOUD-CONFIG = $.config;
-        &code(|c)
-    }
-}
-
-method gc-ctx(&code) is raw {
-    my $*WWW-GCLOUD-CONFIG = $.config;
-    &code()
-}
-
 method !on-HTTP-error(Promise:D $p) {
     my $cause = $p.cause;
     if $cause ~~ X::Cro::HTTP::Error
         && $cause.response.content-type.type-and-subtype eq 'application/json'
     {
         my $err-body = await $cause.response.body-text;
-        if $*WWW-GCLOUD-DUMP-BODY {
-            note "--- ERR BODY ---\n", $err-body, "\n--- ERR BODY ENDS ---";
-        }
         self.throw:
             WWW::GCloud::X::API::HTTP,
             response => $cause.response,
@@ -74,17 +61,15 @@ method !on-HTTP-error(Promise:D $p) {
 }
 
 method wrap-response(Promise:D $req-promise, ::AS :as($), Bool :$raw, Bool :json(:$json-body) = True) {
+    my $config := self.config;
     $req-promise
         .andthen(
-            self.gc-ctx-wrap: {
+            $config.gc-ctx-wrap: {
                 if $raw {
                     .result
                 }
                 elsif $json-body {
                     my $body := await .result.body-text;
-                    if $*WWW-GCLOUD-DUMP-BODY {
-                        note "--- RESPONSE BODY ---\n", $body, "\n--- RESPONSE BODY ENDS ---";
-                    }
                     AS =:= WWW::GCloud::Record ?? $body !! AS.from-json($body)
                 }
                 else {
@@ -92,7 +77,7 @@ method wrap-response(Promise:D $req-promise, ::AS :as($), Bool :$raw, Bool :json
                 }
             }
         )
-        .orelse(self.gc-ctx-wrap: { self!on-HTTP-error($_) })
+        .orelse($config.gc-ctx-wrap: { self!on-HTTP-error($_) })
 }
 
 method get( ::?CLASS:D:
@@ -104,14 +89,16 @@ method get( ::?CLASS:D:
             *%c
             --> Promise:D )
 {
-    self.wrap-response:
-        :$json-body, :$raw, :$as,
-        $.http-client.get( $api-path,
-                        headers => [
-                            $.gcloud.http-auth-header,
-                            |@headers,
-                        ],
-                        |%c )
+    self.config.gc-ctx: {
+        self.wrap-response:
+            :$json-body, :$raw, :$as,
+                $.http-client.get( $api-path,
+                                headers => [
+                                    $.gcloud.http-auth-header,
+                                    |@headers,
+                                ],
+                                |%c )
+    }
 }
 
 my subset POSTBody is export of Any
@@ -130,31 +117,35 @@ method post( ::?CLASS:D:
              *%c
              --> Promise:D )
 {
-    my $body =
-        $body-object ~~ WWW::GCloud::Record
-            ?? $body-object.to-json(:skip-null, :!pretty)
-            !! to-json($body-object, :!pretty);
-    self.wrap-response:
-        :$raw, :$as, :json-body,
-        $.http-client.post( $api-path,
-                            content-type => 'application/json',
-                            headers => [
-                                $.gcloud.http-auth-header,
-                                |@headers,
-                            ],
-                            :$body,
-                            |%c )
+    self.config.gc-ctx: {
+        my $body =
+            $body-object ~~ JSON::Class::Jsonish
+                ?? $body-object.to-json(:!pretty)
+                !! to-json($body-object, :!pretty);
+        self.wrap-response:
+            :$raw, :$as, :json-body,
+            $.http-client.post( $api-path,
+                                content-type => 'application/json',
+                                headers => [
+                                    $.gcloud.http-auth-header,
+                                    |@headers,
+                                ],
+                                :$body,
+                                |%c )
+    }
 }
 
 method delete( ::?CLASS:D: Str:D $api-path, :@headers, *%c --> Promise:D ) {
-    self.wrap-response:
-        :raw,
-        $.http-client.delete( $api-path,
-                              headers => [
-                                  $.gcloud.http-auth-header,
-                                  |@headers,
-                              ],
-                              |%c )
+    self.config.gc-ctx: {
+        self.wrap-response:
+            :raw,
+            $.http-client.delete( $api-path,
+                                headers => [
+                                    $.gcloud.http-auth-header,
+                                    |@headers,
+                                ],
+                                |%c )
+    }
 }
 
 proto method paginate(|) {*}
@@ -183,6 +174,7 @@ multi method paginate( ::?CLASS:D:
 {
     my Str $pageToken;
     my Supplier::Preserving $supplier .= new;
+    my $config := self.config;
 
     start repeat {
             with $query {
@@ -192,7 +184,7 @@ multi method paginate( ::?CLASS:D:
             }
             $pageToken =
                 await promise-producer($pageToken)
-                    .andthen(self.gc-ctx-wrap: {
+                    .andthen($config.gc-ctx-wrap: {
                         my REC-TYPE $folio = .result;
                         if $paginate {
                             $supplier.emit: $folio.items;
@@ -206,7 +198,7 @@ multi method paginate( ::?CLASS:D:
                             Nil
                         }
                     })
-                    .orelse(self.gc-ctx-wrap: {
+                    .orelse($config.gc-ctx-wrap: {
                         $supplier.quit: .cause;
                         Nil
                     });

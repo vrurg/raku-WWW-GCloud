@@ -10,7 +10,7 @@ also is gc-record;
 
 has Str $.id;
 has Str $.issuer;
-has Str $.jwksUri is mooish(:alias<jwks-uri>);
+has Str $.jwksUri;
 has Str $.audiences;
-has Str $.authorizationUrl is mooish(:alias<authorization-url>);
-has WWW::GCloud::R::JwtLocation:D @.jwtLocations is mooish(:alias<jwt-locations>);
+has Str $.authorizationUrl;
+has WWW::GCloud::R::JwtLocation:D @.jwtLocations;

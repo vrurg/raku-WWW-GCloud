@@ -8,11 +8,11 @@ also is gc-record;
 
 has Str $.name;
 has Str $.description;
-has Str $.defaultLimit is mooish(:alias<default-limit>);
-has Str $.maxLimit is mooish(:alias<max-limit>);
-has Str $.freeTier is mooish(:alias<free-tier>);
+has Str $.defaultLimit;
+has Str $.maxLimit;
+has Str $.freeTier;
 has Str $.duration;
 has Str $.metric;
 has Str $.unit;
-has Str $.displayName is mooish(:alias<display-name>);
+has Str $.displayName;
 has %.values;

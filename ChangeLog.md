@@ -2,7 +2,7 @@
 
   - **v0.0.6**
     
-      - Rebase onto [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class)
+      - Use [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class) as the marshalling framework
 
   - **v0.0.5**
     

@@ -6,6 +6,6 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-has Str $.valuePrefix is mooish(:alias<value-prefix>);
+has Str $.valuePrefix;
 has Str $.header;
 has Str $.query;

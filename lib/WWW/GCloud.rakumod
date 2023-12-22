@@ -5,7 +5,9 @@ use AttrX::Mooish;
 use Cro::HTTP::Client;
 use Cro::Uri;
 use File::Which;
+use JSON::Class:auth<zef:vrurg>:api<1.0.4>;
 use Method::Also;
+
 use WWW::GCloud::CPromise;
 use WWW::GCloud::Config;
 use WWW::GCloud::Configurable;
@@ -13,6 +15,8 @@ use WWW::GCloud::Utils;
 use WWW::GCloud::X;
 
 also does WWW::GCloud::Configurable;
+
+PROCESS::<$WWW-GCLOUD-CONFIG> = ::?CLASS;
 
 # Does the CORE Promise implements .andthen and .orelse?
 our constant CORE-PROMISE-OK = $*RAKU.compiler.version >= v2023.06.99.gacd.8.cc.450;
@@ -51,18 +55,6 @@ multi method new-record(Str:D $short-name, |c) {
     resolve-package('WWW::GCloud::R::' ~ $short-name).new(|c)
 }
 
-method gc-ctx(&code, WWW::GCloud::Config :$config --> Mu) is also<gc-context> is raw {
-    my $*WWW-GCLOUD-CONFIG = $config // $.config;
-    &code()
-}
-
-method gc-ctx-wrap(&code, WWW::GCloud::Config :$config) is also<gc-context-wrap> is raw {
-    -> |c is raw {
-        my $*WWW-GCLOUD-CONFIG = $config // $.config;
-        &code(|c)
-    }
-}
-
 my $api-classes = my %;
 method register-api(Mu:U \api-class, Str:D $api-name --> Nil) {
     cas $api-classes, my sub ($_) {
@@ -82,6 +74,8 @@ method register-api(Mu:U \api-class, Str:D $api-name --> Nil) {
     }
 }
 
+method has-API(Str:D $api-name) { $api-classes.EXISTS-KEY($api-name) }
+
 method get-API-object(::?CLASS:D: Str:D $api-name --> Mu:D) {
     $!API-lock.protect: {
         without %!APIs{$api-name} {
@@ -97,15 +91,13 @@ method get-API-object(::?CLASS:D: Str:D $api-name --> Mu:D) {
 
 BEGIN {
     ::?CLASS.^add_fallback(
-        -> $obj, $name {
-            $api-classes.EXISTS-KEY($name)
-        },
+        -> $obj, $name { $obj.has-API($name) },
         -> $obj, $name {
             my &get-API-method = anon method { self.get-API-object($name) };
             &get-API-method.set_name($name);
             ::?CLASS.^add_method($name, &get-API-method);
             ::?CLASS.^compose;
-            &get-API-method;
+            &get-API-method
         }
     )
 }

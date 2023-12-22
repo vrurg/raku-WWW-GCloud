@@ -6,6 +6,6 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-has Str $.serviceAccountParent is mooish(:alias<service-account-parent>);
-has Str $.displayName is mooish(:alias<display-name>);
+has Str $.serviceAccountParent;
+has Str $.displayName;
 has Str $.description;

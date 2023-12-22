@@ -16,6 +16,6 @@ has Str $.name;
 has WWW::GCloud::R::Method:D @.methods;
 has WWW::GCloud::R::Option @.options;
 has Str $.version;
-has WWW::GCloud::R::SourceContext $.source_context is mooish(:alias<source-context>);
+has WWW::GCloud::R::SourceContext $.source_context;
 has WWW::GCloud::R::Mixin:D @.mixins;
 has WWW::GCloud::R::Syntax $.syntax;

@@ -8,4 +8,4 @@ also is gc-record;
 
 has Str $.selector;
 has Str $.description;
-has Str $.deprecationDescription is mooish(:alias<deprecation-description>);
+has Str $.deprecationDescription;

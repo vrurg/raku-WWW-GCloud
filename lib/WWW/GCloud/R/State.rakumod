@@ -1,8 +1,6 @@
 use v6.e.PREVIEW;
 
-use WWW::GCloud::Record;
-
-enum WWW::GCloud::R::State is gc-enum (
+enum WWW::GCloud::R::State (
     GCStateUnspecified => "STATE_UNSPECIFIED",
     GCStateDisable => "DISABLED",
     GCStateEnabled => "ENABLED",

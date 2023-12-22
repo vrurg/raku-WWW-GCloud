@@ -9,4 +9,4 @@ use WWW::GCloud::R::MetricRule;
 also is gc-record;
 
 has WWW::GCloud::R::QuotaLimit:D @.limits;
-has WWW::GCloud::R::MetricRule:D @.metricRules is mooish(:alias<metric-rules>);
+has WWW::GCloud::R::MetricRule:D @.metricRules;

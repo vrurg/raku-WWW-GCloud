@@ -10,5 +10,5 @@ also is gc-record;
 has Str:D $.domain is required;
 has Str $.reason;
 has Str $.message;
-has Str $.locationType is mooish(:alias<location-type>);
+has Str $.locationType;
 has Str $.location;

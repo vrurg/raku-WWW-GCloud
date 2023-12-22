@@ -6,6 +6,6 @@ use WWW::GCloud::Record;
 
 also is gc-record;
 
-has Str $.providerId is mooish(:alias<provider-id>);
+has Str $.providerId;
 has Str $.audiences;
 
