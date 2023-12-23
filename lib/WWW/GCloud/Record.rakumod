@@ -35,7 +35,9 @@ BEGIN {
     multi sub make-a-record(Mu:U \type, |c (Mu :$paginating is raw, *%for-json)) {
         unless type.HOW ~~ WWW::GCloud::HOW::APIRecord {
             unless type.HOW ~~ JSON::Class::HOW::Jsonish {
-                &trait_mod:<is>(type, json => (:implicit, :lazy, :skip-null, |%for-json));
+                my %config = :enums-as-value, (|.Hash with %for-json<config>);
+                &trait_mod:<is>( type,
+                                 json => (:implicit, :lazy, :skip-null, |%for-json, :%config) );
             }
             type.HOW does WWW::GCloud::HOW::APIRecord;
             type.^add_role(::?ROLE);

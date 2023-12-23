@@ -30,8 +30,8 @@ my $rec2 =
         );
 
 my $expected = '{"rec1":{"value":"sym2","values":["sym1","sym2","sym1"]},"recs":[{"value":"sym3","values":["sym2","sym3","sym4"]},{"values":["sym4","sym3"]}]}';
-is $rec2.to-json(:sorted-keys, :enums-as-value), $expected, "enums seralized by their values";
+is $rec2.to-json(:sorted-keys), $expected, "enums seralized by their values";
 
-my $rec = GCRecord2.from-json($expected, :enums-as-value);
+my $rec = GCRecord2.from-json($expected);
 
 cmp-deeply $rec, $rec2, "deserialization succeed";
