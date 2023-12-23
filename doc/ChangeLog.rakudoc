@@ -5,6 +5,7 @@
 B<v0.0.6>
 
 =item Use L«C<JSON::Class:auth<zef:vrurg>>|rakudoc:JSON::Class:auth<zef:vrurg>» as the marshalling framework
+=item Set C<:enums-as-value> L«C<JSON::Class:auth<zef:vrurg>>|rakudoc:JSON::Class:auth<zef:vrurg>» configuration option by default for all C<is gc-record> types
 =end item
 
 =begin item

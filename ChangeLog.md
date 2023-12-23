@@ -3,6 +3,8 @@
   - **v0.0.6**
     
       - Use [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class) as the marshalling framework
+    
+      - Set `:enums-as-value` [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class) configuration option by default for all `is gc-record` types
 
   - **v0.0.5**
     
