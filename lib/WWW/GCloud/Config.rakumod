@@ -9,6 +9,8 @@ use WWW::GCloud::Utils;
 
 also is JSON::Class::Config;
 
+method new(|c) { nextwith(:enums-as-value, |c) }
+
 method gc-ctx(&code) is raw is also<gc-context> {
     my $*JSON-CLASS-CONFIG :=
     my $*WWW-GCLOUD-CONFIG := self;
