@@ -10,7 +10,7 @@
         "Cro::HTTP:ver<0.8.9>:auth<zef:cro>",
         "Crypt::Random:ver<0.4.1>",
         "File::Which:ver<1.0.4>",
-        "JSON::Class:auth<zef:vrurg>:api<1.0.4>",
+        "JSON::Class:auth<zef:vrurg>:api<1.0.5>",
         "MIME::Types:ver<0.2>:auth<zef:raku-community-modules>",
         "Method::Also:ver<0.0.8>:auth<zef:lizmat>"
     ],
