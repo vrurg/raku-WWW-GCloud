@@ -1,5 +1,7 @@
 # CHANGELOG
 
+  - **v0.0.7**
+
   - **v0.0.6**
     
       - Use [`JSON::Class:auth<zef:vrurg>`](https://raku.land/zef:vrurg/JSON::Class) as the marshalling framework

@@ -3,6 +3,11 @@
 =head1 CHANGELOG
 
 =begin item
+B<v0.0.7>
+
+=end item
+
+=begin item
 B<v0.0.6>
 
 =item Use L«C<JSON::Class:auth<zef:vrurg>>|rakudoc:JSON::Class:auth<zef:vrurg>» as the marshalling framework
