@@ -1,6 +1,8 @@
 # CHANGELOG
 
   - **v0.0.7**
+    
+      - Stop using explicit version number is `use JSON::Class` statements
 
   - **v0.0.6**
     

@@ -5,6 +5,7 @@
 =begin item
 B<v0.0.7>
 
+=item Stop using explicit version number is C<use JSON::Class> statements
 =end item
 
 =begin item
