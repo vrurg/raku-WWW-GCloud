@@ -5,7 +5,7 @@ use AttrX::Mooish;
 use Cro::HTTP::Client;
 use Cro::Uri;
 use File::Which;
-use JSON::Class:auth<zef:vrurg>:api<1.0.4>;
+use JSON::Class:auth<zef:vrurg>;
 use Method::Also;
 
 use WWW::GCloud::CPromise;

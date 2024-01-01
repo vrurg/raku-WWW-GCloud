@@ -2,8 +2,8 @@ use v6.e.PREVIEW;
 unit role WWW::GCloud::Record;
 
 use AttrX::Mooish;
-use JSON::Class:auth<zef:vrurg>:api<1.0.4>;
-use JSON::Class::HOW::Jsonish:auth<zef:vrurg>:api<1.0.4>;
+use JSON::Class:auth<zef:vrurg>;
+use JSON::Class::HOW::Jsonish:auth<zef:vrurg>;
 
 use WWW::GCloud::Config;
 use WWW::GCloud::HOW::APIRecord;

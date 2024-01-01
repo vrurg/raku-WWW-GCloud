@@ -2,8 +2,8 @@ use v6.e.PREVIEW;
 unit role WWW::GCloud::RR::Paginatable[::ITEM-TYPE, Str $items-alias?, Str :$json-name];
 
 use AttrX::Mooish;
-use JSON::Class:auth<zef:vrurg>:api<1.0.4>;
-use JSON::Class::Attr:auth<zef:vrurg>:api<1.0.4>;
+use JSON::Class:auth<zef:vrurg>;
+use JSON::Class::Attr:auth<zef:vrurg>;
 use WWW::GCloud::Utils :kebabify;
 
 also is json(:implicit);
