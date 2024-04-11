@@ -6,11 +6,11 @@
     ],
     "build-depends": [],
     "depends": [
-        "AttrX::Mooish:auth<zef:vrurg>:api<1.0.6>:ver<1.0.9+>",
+        "AttrX::Mooish:auth<zef:vrurg>:api<1.0.6>:ver<1.0.10+>",
         "Cro::HTTP:ver<0.8.9>:auth<zef:cro>",
         "Crypt::Random:ver<0.4.1>",
         "File::Which:ver<1.0.4>",
-        "JSON::Class:auth<zef:vrurg>:api<1.0.5>",
+        "JSON::Class:auth<zef:vrurg>:api<1.0.5>:ver<0.0.6+>",
         "MIME::Types:ver<0.2>:auth<zef:raku-community-modules>",
         "Method::Also:ver<0.0.8>:auth<zef:lizmat>"
     ],
@@ -84,5 +84,5 @@
     "test-depends": [
         "Test::Async:ver<0.1.15+>:auth<zef:vrurg>"
     ],
-    "version": "0.0.7"
+    "version": "0.0.8"
 }
