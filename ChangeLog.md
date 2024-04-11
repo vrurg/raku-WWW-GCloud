@@ -1,5 +1,9 @@
 # CHANGELOG
 
+  - **v0.0.8**
+    
+      - Bump dependencies to get compatibility with the latest Rakudo builds
+
   - **v0.0.7**
     
       - Stop using explicit version number is `use JSON::Class` statements

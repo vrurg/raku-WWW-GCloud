@@ -3,6 +3,12 @@
 =head1 CHANGELOG
 
 =begin item
+B<v0.0.8>
+
+=item Bump dependencies to get compatibility with the latest Rakudo builds
+=end item
+
+=begin item
 B<v0.0.7>
 
 =item Stop using explicit version number is C<use JSON::Class> statements
